@@ -1,5 +1,5 @@
 ---
-title: "nixOS - cloud-init"
+title: "nixos - cloud-init"
 date: 2021-01-22T12:55:09+09:00
 slug: "nixos - cloud-init"
 description: "Using cloud init to setup NixOS on scaleway"
@@ -18,7 +18,7 @@ hook you are able to boot up an instance.
 After a few moments you can login using your predefined SSH keys which have been
 initialised, along with the hostname and SSH serrvice, in `/etc/nixos/configuration.nix`:
 
-```
+```nix
 { ... }: {
   imports = [
     ./hardware-configuration.nix
@@ -60,7 +60,7 @@ up the system ready for me to rsync the blog to the server. At a later stage I
 plan on using GitHub hooks to automate this stage and have it so everything is
 contained in a repo.
 
-```
+```yaml
 #cloud-config
 write_files:
 - path: /etc/nixos/host.nix
