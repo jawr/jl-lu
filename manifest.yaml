@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jl-lu
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-service
+  namespace: jl-lu
+  labels:
+    app: blog
+spec:
+  ports:
+    - port: 80
+      name: http
+  selector:
+    app: blog
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-deploy
+  namespace: jl-lu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: blog
+          image: ghcr.io/jawr/jl-lu/blog:latest
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+              name: blog
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: jl-lu
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+    cert-manager.io/cluster-issuer: cert-manager-issuer
+spec:
+  tls:
+    - secretName: jl-lu-tls
+      hosts:
+        - jl.lu
+  rules:
+    - host: jl.lu
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: blog-service
+                port:
+                  number: 80
