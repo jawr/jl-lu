@@ -2,7 +2,7 @@ name: release jl.lu
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   docker-build:
