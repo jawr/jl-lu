@@ -1,10 +1,10 @@
 ---
 title: "it svelte good"
 date: 2021-03-22T18:02:55+09:00
-slug: "swapping out React for svelte"
+slug: "swapping out react for svelte"
 description: "Refactoring a project from React to svelte"
 keywords: ["svelte", "react"]
-draft: true
+draft: false
 tags: ["svelte", "react"]
 math: false
 toc: false
