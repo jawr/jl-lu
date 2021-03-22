@@ -1,4 +1,4 @@
-FROM klakegg/hugo:ext-alpine AS build
+FROM klakegg/hugo:0.81.0-ext-alpine AS build
 
 WORKDIR /build
 
